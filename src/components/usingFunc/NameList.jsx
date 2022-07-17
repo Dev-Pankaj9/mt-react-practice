@@ -4,7 +4,6 @@ const NameList = ({ users, handleUpdateData, handleDeleteUser }) => {
     const { list, colors } = users;
     const user_names = Object.keys(list);
     const color_keys = Object.keys(colors);
-    const color_arr = [];
     
     console.log(colors, list);
 
@@ -12,7 +11,7 @@ const NameList = ({ users, handleUpdateData, handleDeleteUser }) => {
         user_names.map(key => {
             const {id, name, color} = list[key];
             if(!name || !color) return null;
-            color_arr.push(color);
+            
             return <li className='list-item' key={id}>
                 <span>{name}</span>
                 <span>{color}</span>

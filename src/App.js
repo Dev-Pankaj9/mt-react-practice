@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Form from './components/usingFunc/Form';
 import NameList from './components/usingFunc/NameList';
 import { v4 as uuidv4 } from 'uuid';
+import { handleize } from './util/util';
 
 function App() {
   const [users, setUsers] = useState({
@@ -23,12 +24,12 @@ function App() {
       },
       list: {
         ...users.list,
-        [NAME_KEY]: {...data}
+        [NAME_KEY]: data
       }
     });
   }
   const handleDeleteUser = (name) => {
-    const NAME_KEY = name.toLowerCase().trim();
+    const NAME_KEY = handleize(name);
     const { list } = users;
     if(!list[NAME_KEY]) return;
     const {color} = list[NAME_KEY];
@@ -42,16 +43,22 @@ function App() {
       list
     });
   }
-
-  const handleEditUser = (name, color) => {
+  const handleEditUser = (name, prev_color, new_color) => {
+    const NEW_COLOR_KEY = new_color.toLowerCase().trim();
+    const PREV_COLOR_KEY = prev_color.toLowerCase().trim();
     const { list } = users;
-    list[name].color = color; 
+    list[name].color = new_color; 
     setUsers({
-      ...users,
-      list
+      colors: {
+        ...users.colors,
+        [PREV_COLOR_KEY]: users.colors[PREV_COLOR_KEY] - 1,
+        [NEW_COLOR_KEY]: users.colors[NEW_COLOR_KEY] + 1
+      },
+      list: {
+        ...list
+      }
     });
   }
-
   const handleUpdateData = data => {
     // const { list } = users;
     // const keys_len = Object.keys(list).length;
@@ -61,7 +68,7 @@ function App() {
 
   return (
     <>
-    <Form users={users} handleSetUsers={handleSetUsers} updateData={updateData} handleUpdateData={handleUpdateData} handleEditUser={handleEditUser} />
+    <Form users={users} handleSetUsers={handleSetUsers} updateData={updateData} handleEditUser={handleEditUser} handleUpdateData={handleUpdateData} />
     <NameList users={users} handleDeleteUser={handleDeleteUser} handleUpdateData={handleUpdateData} />
     </>
   );
