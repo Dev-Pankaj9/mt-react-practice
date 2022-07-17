@@ -7,6 +7,12 @@ const NameList = ({ users, handleUpdateData, handleDeleteUser }) => {
     
     console.log(colors, list);
 
+    const handleDelete = name => {
+        if(window.confirm(`Are you sure want to delete the user ${name.toUpperCase()}?`)){
+            handleDeleteUser(name);
+        }
+    }
+
     const colors_jsx = user_names.length > 0 ? (
         user_names.map(key => {
             const {id, name, color} = list[key];
@@ -18,7 +24,7 @@ const NameList = ({ users, handleUpdateData, handleDeleteUser }) => {
                 <div className='action-cta'>
                     <button type="button" onClick={() => handleUpdateData({id,name,color})}>Edit</button>
                     <span>|</span>
-                    <button type="button" onClick={() => handleDeleteUser(name)}>Delete</button>   
+                    <button type="button" onClick={() => handleDelete(name)}>Delete</button>   
                 </div>
             </li>
         })
