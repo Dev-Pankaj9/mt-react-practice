@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/mt-react-practice/static/css/main.8e59cfbd.css",
+    "main.js": "/mt-react-practice/static/js/main.709718e2.js",
+    "index.html": "/mt-react-practice/index.html",
+    "main.8e59cfbd.css.map": "/mt-react-practice/static/css/main.8e59cfbd.css.map",
+    "main.709718e2.js.map": "/mt-react-practice/static/js/main.709718e2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8e59cfbd.css",
+    "static/js/main.709718e2.js"
+  ]
+}
