@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import Input from '../Input';
+import Select from '../Select';
+import Button from '../Button';
+import { handleize } from '../../util/util';
 
-const Form = ({ users, handleSetUsers, updateData, handleEditUser, handleUpdateData }) => {
+const Form = ({ users, handleAddUsers, updateData, handleEditUser, handleUpdateData }) => {
+    // const [inputName, setInputName] = useState(() => updateData ? updateData.name : '');
+    console.log('Form Comp');
     const { list, colors } = users;
     const colors_keys = Object.keys(colors);
-    // const [inputName, setInputName] = useState(() => updateData ? updateData.name : '');
+    const DEFAULT_COLOR = 'none';
     const [inputFields, setInputFields] = useState({
         name: '',
-        color: colors_keys[0]
+        color: DEFAULT_COLOR
     });
-    console.log({inputFields, updateData});
-    const { name, color } = inputFields;
-    const colors_jsx = colors_keys.map(opt_color => {
-        if(color === opt_color) return <option key={opt_color} value={opt_color} selected>{opt_color}</option>
-        else return <option key={opt_color} value={opt_color}>{opt_color}</option>
-    });
+    
+    const colors_list = colors_keys.map(color => ({id: `color-${color}`, title: color, value: color, disabled: false}));
+    colors_list.unshift({id:'none', title:"Select color", value:"none", disabled: true});
 
     const handleOnChange = (evt) => {
         const {name, value} = evt.target;
@@ -26,25 +29,23 @@ const Form = ({ users, handleSetUsers, updateData, handleEditUser, handleUpdateD
     const handleSubmitForm = (evt) => {
         evt.preventDefault();
         const {name, color} = inputFields;
-        if(name === '' || color === '') {
+        if(name === '' || color === 'none') {
             alert('All fields are mandatory');
             return;
         }
 
-        const name_key = name.toLowerCase();
+        const NAME_KEY = handleize(name);
         if(updateData){
-            const prev_name_key = updateData.name.toLowerCase();
-            if(prev_name_key === name_key && updateData.color === color) return;
-            handleEditUser(prev_name_key, updateData.color, color);
+            const PREV_NAME_KEY = handleize(updateData.name);
+            if(PREV_NAME_KEY === NAME_KEY && updateData.color === color) return;
+            handleEditUser(PREV_NAME_KEY, color);
         } else {
-            if(list[name_key]){
+            if(list[NAME_KEY]){
                 alert(`The name ${name} already exist. Please enter another name`);
                 return;
             }
-            handleSetUsers(name, color);
+            handleAddUsers(name, color);
         }
-        
-        handleResetForm();
     }
 
     const handleResetForm = () => {
@@ -53,56 +54,52 @@ const Form = ({ users, handleSetUsers, updateData, handleEditUser, handleUpdateD
         } else {
             setInputFields({
                 name: '',
-                color: colors_keys[0]
+                color: DEFAULT_COLOR
             });
         }
     }
 
-    // useEffect(() => {
-    //     console.log('hello');
-    //     handleResetForm()
-    // }, [users]);
+    useEffect(() => {
+        if(updateData) setInputFields({name: updateData.name, color: updateData.color});
+    }, [updateData]);
 
     useEffect(() => {
-        if(updateData){
-            setInputFields({
-                name: updateData.name,
-                color: updateData.color
-            });
-        } else {
-            setInputFields({
-                name: '',
-                color: colors_keys[0]
-            });
-        }
-    }, [updateData])
+        setInputFields({
+            name: '',
+            color: DEFAULT_COLOR
+        });
+    }, [users]);
+
+    const { name, color } = inputFields;
     
     return (
         <section>
             <div className='container'>
                 <form onSubmit={handleSubmitForm}>
                     <div className='form-group'>
-                        <label htmlFor="name">Name</label>
-                        <input 
-                            onChange={handleOnChange} 
+                        <Input 
+                            labelName="Name"
+                            type="text" 
                             id="name" 
                             name="name" 
-                            type="text" 
                             placeholder="Enter name" 
                             value={name} 
-                            disabled={updateData ? true : false}/>
+                            disabled={updateData ? true : false} 
+                            handleOnChange={handleOnChange} />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="color">Color</label>
-                        <select onChange={handleOnChange} id="color" name="color" defaultValue={color}>
-                            {colors_jsx}
-                        </select>
+                        <Select  
+                            labelName="Color" 
+                            select_id="color" 
+                            name="color" 
+                            select_value={color} 
+                            options={colors_list} 
+                            handleOnChange={handleOnChange}
+                        />
                     </div>
                     <div className="form-group form-group-cta">
-                        <button type="submit" className="btn-submit">
-                            {updateData ? 'Update': 'Save'}
-                        </button>
-                        <button type="button" className="btn-clear" onClick={handleResetForm}>Clear</button>
+                        <Button title={updateData ? 'Update': 'Save'} type="submit" class_names="btn-submit" />
+                        <Button title="Clear" type="button" class_names="btn-clear" handleOnClick={handleResetForm} />
                     </div>
                 </form>
             </div>

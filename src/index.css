@@ -47,13 +47,15 @@ form button.btn-clear {
   border: 1px solid rgb(110, 112, 114);
   background-color: gray;
 }
+form input {
+  text-transform: uppercase;
+}
 form input, form select {
   padding: 0.5rem 1rem;
   border-radius: 3px;
   outline: none;
   border: 1px solid #000;
   width: 100%;
-  text-transform: capitalize;
 }
 form select {
   text-transform: capitalize;

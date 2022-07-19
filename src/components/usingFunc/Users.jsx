@@ -1,11 +1,12 @@
 import React from 'react';
 
-const NameList = ({ users, handleUpdateData, handleDeleteUser }) => {
+const Users = ({ users, handleUpdateData, handleDeleteUser }) => {
     const { list, colors } = users;
     const user_names = Object.keys(list);
     const color_keys = Object.keys(colors);
     
-    console.log(colors, list);
+    // console.log(colors, user_names);
+    console.log('Users Comp');
 
     const handleDelete = name => {
         if(window.confirm(`Are you sure want to delete the user ${name.toUpperCase()}?`)){
@@ -13,7 +14,7 @@ const NameList = ({ users, handleUpdateData, handleDeleteUser }) => {
         }
     }
 
-    const colors_jsx = user_names.length > 0 ? (
+    const users_jsx = user_names.length > 0 ? (
         user_names.map(key => {
             const {id, name, color} = list[key];
             if(!name || !color) return null;
@@ -43,7 +44,7 @@ const NameList = ({ users, handleUpdateData, handleDeleteUser }) => {
                         <h3>Color</h3>
                         <h3>Action</h3>
                     </li>
-                    {colors_jsx}
+                    {users_jsx}
                 </ul>
                 <ul className='list list--balls'>{ballsJsx}</ul>
             </div>
@@ -51,4 +52,4 @@ const NameList = ({ users, handleUpdateData, handleDeleteUser }) => {
     )
 }
 
-export default NameList;
+export default Users;
