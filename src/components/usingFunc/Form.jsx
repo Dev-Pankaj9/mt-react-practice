@@ -61,6 +61,7 @@ const Form = ({ users, handleAddUsers, updateData, handleEditUser, handleUpdateD
 
     useEffect(() => {
         if(updateData) setInputFields({name: updateData.name, color: updateData.color});
+        else setInputFields({ name: '', color: DEFAULT_COLOR });
     }, [updateData]);
 
     useEffect(() => {
