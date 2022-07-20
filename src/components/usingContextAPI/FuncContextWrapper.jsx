@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Form from "./Form";
-import Users from "./Users";
 import { v4 as uuidv4 } from "uuid";
 import { handleize } from "../../util/util";
+import MiddleComp from "./MiddleComp";
+import UserContext from "../../ContextAPI/UserContext";
 import { Link } from 'react-router-dom';
 
-const FuncWrapperComp = () => {
+const FuncContextWrapper = () => {
   const [users, setUsers] = useState({
     colors: { red: 0, green: 0, blue: 0 },
     list: [],
@@ -72,43 +72,34 @@ const FuncWrapperComp = () => {
 
   console.log("FuncWrapper Comp");
 
+  const ContextValue = {
+    users,
+    updateData,
+    handleAddUsers,
+    handleEditUser,
+    handleUpdateData,
+    handleDeleteUser,
+  };
+
+//   const UserContext = createContext(ContextValue);
+
   return (
     <section>
-      <div className="container">
-        <h1>
-          <Link to="/mt-react-practice">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </Link>
-          <span>Functional Multi Component</span>
-        </h1>
-      </div>
-      <Form
-        users={users}
-        handleAddUsers={handleAddUsers}
-        updateData={updateData}
-        handleEditUser={handleEditUser}
-        handleUpdateData={handleUpdateData}
-      />
-      <Users
-        users={users}
-        handleDeleteUser={handleDeleteUser}
-        handleUpdateData={handleUpdateData}
-      />
+        <div className="container">
+            <h1>
+                <Link to="/mt-react-practice">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </Link>
+                <span>Context API</span>
+            </h1>
+        </div>
+        <UserContext.Provider value={ContextValue}>
+        <MiddleComp />
+        </UserContext.Provider>
     </section>
   );
 };
 
-export default FuncWrapperComp;
+export default FuncContextWrapper;

@@ -7,8 +7,74 @@
 html {
   font-size: 16px;
 }
-body {
+body, #root {
   font-size: 1rem;
+}
+.section-homepage {
+  height: 100vh;
+}
+.section-homepage,
+.section-homepage ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.section-homepage ul {
+  width: 100%;
+  gap: 2rem;
+  max-width: 80%;
+}
+section {
+  padding-top: 2vh;
+}
+section h1 {
+  text-align: center;
+  font-size: 3vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+section h1 a {
+  max-width: 40px;
+  flex: 0.25;
+}
+section h1 svg {
+  max-width: 100%;
+  stroke: #000;
+  cursor: pointer;
+}
+section h1 span {
+  flex: 1;
+  text-align: center;
+}
+.section-homepage ul li {
+  flex: 1;
+}
+.section-homepage ul li a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  font-size: 1.5rem;
+  box-sizing: border-box;
+  padding: 0 25px;
+  cursor: pointer;
+  background: #1462ff;
+  border-radius: 12px;
+  box-shadow: 0 6px 30px -10px #4a74c9;
+  overflow: hidden;
+  height: 120px;
+}
+.section-homepage ul li a span {
+  text-align: left;
+  font-size: 1.4em;
+  margin-right: auto;
+  color: #fff;
+}
+.section-homepage ul li a svg {
+  max-width: 35px;
+  stroke: #fff;
 }
 .container {
   max-width: 100%;
