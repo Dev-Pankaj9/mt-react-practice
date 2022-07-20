@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import FuncWrapperComp from './components/usingFunc/FuncWrapperComp';
 import FuncContextWrapper from './components/usingContextAPI/FuncContextWrapper';
-import Home from './Pages/Home';
+import Home from './pages/Home';
 
 function App() {
   return (

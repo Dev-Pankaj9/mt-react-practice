@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import UserContext from '../../ContextAPI/UserContext';
+import UserContext from '../../context-api/UserContext';
 
 const FuncContextUsers = () => {
     const { users, handleUpdateData, handleDeleteUser } = useContext(UserContext);

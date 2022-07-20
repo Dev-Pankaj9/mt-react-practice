@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { handleize } from "../../util/util";
 import MiddleComp from "./MiddleComp";
-import UserContext from "../../ContextAPI/UserContext";
+import UserContext from "../../context-api/UserContext";
 import { Link } from 'react-router-dom';
 
 const FuncContextWrapper = () => {
